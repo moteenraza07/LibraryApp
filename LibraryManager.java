@@ -8,25 +8,28 @@
  * @author Alton
  */
 public class LibraryManager {
-    private final LibraryItem[] items;
-    private int count;
+    private final LibraryItem[] items; // Array storing library items
+    private int count;   // Number of items currently stored
     
+    // Default constructor: maximum of 100 items
     public LibraryManager() {
         this(100);
     }
     
-    
+    // Constructor with custome capacity
     public LibraryManager(int capacity) {
         items = new LibraryItem[capacity];
         count = 0;
     }
     
+    // Adds a libraryItem to the array
     public void addItem(LibraryItem item) throws Exceptions.ArrayFullException, Exceptions.InvalidInputException {
         if (item == null) throw new Exceptions.InvalidInputException("Cannot add null item");
         if (count >= items.length) throw new Exceptions.ArrayFullException("Library is full.");
         items[count++] = item;
     }
     
+    // Find a libraryItem by its ID and returns null if not found.
     public LibraryItem findByID(int id) {
         for (int i = 0; i < count; i++) {
             if (items[i].getId() == id) return items[i];
@@ -34,11 +37,12 @@ public class LibraryManager {
         return null;
     }
     
+    // Alias for findByID
      public LibraryItem findById(int id) {
         return findByID(id);
     }
     
-        
+    // Retrieve items with titles that include the given string    
     public LibraryItem[] findByTitle(String title) {
         LibraryItem[] temp = new LibraryItem[count];
         int found = 0;
@@ -53,7 +57,7 @@ public class LibraryManager {
         return result;
     }
     
-    
+    // Deletes an item byID and shifts the array
      public void deleteItem(int id) throws Exceptions.ItemNotFoundException {
          int idx = -1;
          for (int i = 0; i < count; i++) {
@@ -64,16 +68,19 @@ public class LibraryManager {
          items[--count] = null;
      }
      
+     // Returns a copy of the currently stored items
      public LibraryItem[] listItems() {
          LibraryItem[] out = new LibraryItem[count];
          for (int i = 0; i < count; i++) out[i] = items[i];
          return out;
      }
      
+     // Reutrns the urrent number of tiem stored
      public int getCount() {
          return count;
      }
      
+     // Simple String
      @Override
      public String toString() {
          return "LibraryManager: capacity=" + items.length + ", count=" + count;
@@ -81,3 +88,5 @@ public class LibraryManager {
      
      
 }
+
+
