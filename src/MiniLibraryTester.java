@@ -27,9 +27,9 @@ public class MiniLibraryTester {
 
         try {
             // create and add items
-            Book2 b1 = new Book2(1, "Clean Code", "Robert C. Martin");
-            Book2 b2 = new Book2(2, "Effective Java", "Joshua Bloch");
-            Magazine2 m1 = new Magazine2(100, "Tech Monthly", 7);
+            Book b1 = new Book(1, "Clean Code", "Robert C. Martin");
+            Book b2 = new Book(2, "Effective Java", "Joshua Bloch");
+            Magazine m1 = new Magazine(100, "Tech Monthly", 7);
 
             manager.addItem(b1);
             manager.addItem(b2);
