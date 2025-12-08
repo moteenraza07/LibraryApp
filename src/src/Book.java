@@ -26,9 +26,9 @@ public class Book extends LibraryItem implements Borrowable {
     // mark books borrowed
     // throw exception if book is already borrowed
     @Override
-    public void borrow() throws AlreadyBorrowedException {
-        if(isBorrowed) {
-            throw new AlreadyBorrowedException("Book is already borrowed! ")
+    public void borrow() throws Exceptions.AlreadyBorrowedException {
+        if(isBorrowed()) {
+            throw new Exceptions.AlreadyBorrowedException("Book is already borrowed! ");
         }
 
         setBorrowed(true);

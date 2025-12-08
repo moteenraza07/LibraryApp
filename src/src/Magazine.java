@@ -23,10 +23,10 @@ public class Magazine extends LibraryItem implements Borrowable {
 
     // throws exception if magazine is already borrowed
     @Override
-    public void borrow() throws AlreadyBorrowedException
+    public void borrow() throws Exceptions.AlreadyBorrowedException
     {
         if(isBorrowed()) {
-            throw new AlreadyBorrowedException("Magazine is already borrowed");
+            throw new Exceptions.AlreadyBorrowedException("Magazine is already borrowed");
         }
         setBorrowed(true);
     }
