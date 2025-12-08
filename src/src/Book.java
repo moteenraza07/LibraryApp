@@ -43,6 +43,6 @@ public class Book extends LibraryItem implements Borrowable {
     // return book details
     @Override
     public String toString() {
-        return "book " + super.toString() + "Author " + author;
+        return "Book " + super.toString() + " | Author: " + author;
     }
 }
