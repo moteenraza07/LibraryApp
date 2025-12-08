@@ -12,24 +12,24 @@
  * Demo runner. No user input — all data passed via constructors and method calls.
  */
 public class MiniLibraryTester {
-
     public static void main(String[] args) {
+        // Create an instance and run the demo
         new MiniLibraryTester().runDemo();
     }
 
     public void runDemo() {
-        System.out.println("=== MINI LIBRARY DEMO START ===\n");
-
+        System.out.println("=== MINI LIBRARY DEMO START ===");
+        
         // Create library manager and services
-        LibraryManager manager = new LibraryManager(100);
-        SearchService search = new SearchService();
-        BorrowService borrowService = new BorrowService();
+        LibraryManager manager = new LibraryManager(100); // lobrary capacity 100
+        SearchService search = new SearchService(); // search service
+        BorrowService borrowService = new BorrowService(); // borrowing service
 
         try {
-            // ----- Create and add items -----
-            Book b1 = new Book(1, "Clean Code", "Robert C. Martin");
-            Book b2 = new Book(2, "Effective Java", "Joshua Bloch");
-            Magazine m1 = new Magazine(100, "Tech Monthly", 7);
+            // create and add items
+            Book2 b1 = new Book2(1, "Clean Code", "Robert C. Martin");
+            Book2 b2 = new Book2(2, "Effective Java", "Joshua Bloch");
+            Magazine2 m1 = new Magazine2(100, "Tech Monthly", 7);
 
             manager.addItem(b1);
             manager.addItem(b2);
@@ -39,65 +39,72 @@ public class MiniLibraryTester {
             System.out.println(b1);
             System.out.println(b2);
             System.out.println(m1);
-
-            // ----- Show current items -----
-            System.out.println("\n--- Current Library Items ---");
+            
+            // Show current items in the library
+            System.out.println("\n--- Current Items ---");
             showItems(manager);
-
-            // ----- Search by title -----
-            System.out.println("\n--- Search: 'Effective Java' ---");
+            
+            // Search for an item by title
+            System.out.println("\n--- Search by title 'Effective Java' ---");
             LibraryItem[] found = search.findByTitle(manager, "Effective Java");
-            for (LibraryItem f : found) {
-                System.out.println(f);
-            }
-
-            // ----- Borrowing an item -----
-            System.out.println("\n--- Borrowing Book ID 2 ---");
+            for (LibraryItem f : found) System.out.println("Found: " + f);
+            
+            // Borrowing items
+            System.out.println("\n--- Borrowing ID 2 ---");
             borrowService.borrow(manager, 2);
-            System.out.println("Successfully borrowed: " + b2);
+            
+            // Display all items with updated borrow status
+            showItemsFull(manager);
 
-            System.out.println("\n--- Attempt to borrow Book ID 2 again ---");
+            System.out.println("\n--- Borrowing ID 2 again (expected failure) ---");
             try {
                 borrowService.borrow(manager, 2);
             } catch (Exceptions.AlreadyBorrowedException ex) {
                 System.out.println("Failed to borrow: " + ex.getMessage());
             }
-
-            // ----- Late fee calculation -----
-            System.out.println("\n--- Calculating Late Fee for ID 2 (3 days) ---");
+            
+            // Calculate late fee
+            System.out.println("\n--- Late fee for ID 2 (3 days) ---");
             double fee = borrowService.calculateLateFee(manager, 2, 3);
             System.out.printf("Late fee: $%.2f\n", fee);
-
-            // ----- Returning item -----
-            System.out.println("\n--- Returning Book ID 2 ---");
+            
+            // Returning items
+            System.out.println("\n--- Returning ID 2 ---");
             borrowService.returnItem(manager, 2);
-            System.out.println("Successfully returned: " + b2);
+            
+            // Show final items in the library
+            System.out.println("\n--- Final Items ---");
+            showItemsFull(manager);
 
-            // ----- Final library items -----
-            System.out.println("\n--- Final Library Items ---");
-            showItems(manager);
-
-        } catch (Exceptions.ArrayFullException | Exceptions.InvalidInputException
-                | Exceptions.ItemNotFoundException | Exceptions.AlreadyBorrowedException
-                | Exceptions.NotBorrowedException ex) {
+        } catch (Exceptions.ArrayFullException | Exceptions.InvalidInputException |
+                 Exceptions.ItemNotFoundException | Exceptions.AlreadyBorrowedException |
+                 Exceptions.NotBorrowedException ex) {
+            // Catch any library-related exceptions
             System.out.println("Error: " + ex.getMessage());
         }
 
         System.out.println("\n=== MINI LIBRARY DEMO END ===");
     }
-
-    /**
-     * Display all items in the library. Each item handles its own display
-     * (polymorphic).
-     */
+    // Display all items in the library
     private void showItems(LibraryManager manager) {
+        LibraryItem[] items = manager.listItems();
+        if (items.length == 0) {
+            System.out.println("No items.");
+            return;
+        }
+        for (LibraryItem it : items) it.displayInfo(); // polymorphic display
+    }
+    
+    // Show full info for final item secion
+    private void showItemsFull(LibraryManager manager) {
         LibraryItem[] items = manager.listItems();
         if (items.length == 0) {
             System.out.println("No items in the library.");
             return;
         }
         for (LibraryItem it : items) {
-            it.displayInfo();
+            System.out.println(it.toString()); // full format
         }
     }
 }
+

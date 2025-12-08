@@ -12,7 +12,7 @@ public class Magazine extends LibraryItem implements Borrowable {
     // display information specific to the magazine
     @Override
     public void displayInfo() {
-        System.out.println("Magazine " + getTitle() + "(Issue: " + issueNumber +  ")");
+        System.out.println("Magazine: " + getTitle() + " (Issue: " + issueNumber +  ")");
     }
 
     // calculate fee magazine charge 0.25 per day late
@@ -40,7 +40,7 @@ public class Magazine extends LibraryItem implements Borrowable {
     // returns formatted string with magazine details
     @Override
     public String toString() {
-        return "Magazine " + super.toString() + ", Issue: " + issueNumber;
+        return "Magazine " + super.toString() + " | Issue: " + issueNumber;
     }
 
 

@@ -13,7 +13,7 @@ public class Book extends LibraryItem implements Borrowable {
     // display info for book
     @Override
     public void displayInfo() {
-        System.out.println("Book: " + getTitle() + "by " + author);
+        System.out.println("Book: " + getTitle() + " by " + author);
     }
 
     // calculate fee for book
@@ -43,6 +43,6 @@ public class Book extends LibraryItem implements Borrowable {
     // return book details
     @Override
     public String toString() {
-        return "book " + super.toString() + "Author " + author;
+        return "Book " + super.toString() + " | Author: " + author;
     }
 }
