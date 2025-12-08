@@ -40,7 +40,7 @@ public class Magazine extends LibraryItem implements Borrowable {
     // returns formatted string with magazine details
     @Override
     public String toString() {
-        return "Magazine " + super.toString() + ", Issue: " + issueNumber;
+        return "Magazine " + super.toString() + " | Issue: " + issueNumber;
     }
 
 
